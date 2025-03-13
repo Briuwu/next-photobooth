@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header className="flex items-center justify-between p-5">
       <Link href="/" className="font-sail">
-        RetroSnap Photobooth
+        RetroPhotobooth
       </Link>
       <Button variant="link" className="text-xl">
         About
