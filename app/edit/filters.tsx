@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 
 import { colors, filters } from "@/lib/constant";
 import { cn } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
 
 export const Filters = () => {
   const {
@@ -12,10 +13,12 @@ export const Filters = () => {
     setBackground,
     filter,
     setFilter,
+    dateEnabled,
+    setDateEnabled,
   } = useFiltersStore((store) => store);
   return (
-    <div className="order-1 max-w-[350px] divide-y-2">
-      <div className="py-5">
+    <div className="order-1 max-w-[350px] divide-y-2 self-center">
+      <div className="pb-5">
         <p>Photostrip</p>
         <div className="flex flex-wrap gap-3">
           {colors.map((color) => (
@@ -63,13 +66,29 @@ export const Filters = () => {
               key={filt}
               onClick={() => setFilter(filt)}
               className={cn(
-                "rounded-full bg-black px-2 text-white",
+                "rounded-full bg-black px-2 text-lg text-white",
                 filter === filt && "bg-white text-black",
               )}
             >
               {filt}
             </button>
           ))}
+        </div>
+      </div>
+      <div className="pt-5">
+        <div className="flex items-center space-x-3">
+          <Switch
+            id="display-toggle"
+            checked={dateEnabled}
+            onCheckedChange={setDateEnabled}
+            className="data-[state=checked]:bg-[#B89B6D]"
+          />
+          <label
+            htmlFor="display-toggle"
+            className="cursor-pointer font-serif text-[#B89B6D]"
+          >
+            Enable Date
+          </label>
         </div>
       </div>
     </div>

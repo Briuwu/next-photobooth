@@ -5,7 +5,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="space-y-5 place-self-center">
-      <h1 className="font-sail text-center text-2xl">RetroSnap Photobooth</h1>
+      <h1 className="font-believe-heart text-center text-3xl">
+        RetroSnap Photobooth
+      </h1>
       <div className="grid gap-5 md:grid-cols-2">
         <div className="self-center">
           <div className="flex flex-col gap-5">

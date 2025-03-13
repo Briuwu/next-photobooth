@@ -9,7 +9,9 @@ import Link from "next/link";
 import { Filters } from "./filters";
 
 export const Editor = () => {
-  const { photostrip, background, filter } = useFiltersStore((store) => store);
+  const { photostrip, background, filter, dateEnabled } = useFiltersStore(
+    (store) => store,
+  );
   const { images } = useImagesStore((store) => store);
 
   if (images.length === 0) {
@@ -26,7 +28,7 @@ export const Editor = () => {
     <div className="flex flex-col gap-10 md:flex-row">
       <div
         className={cn(
-          "order-2 mx-auto max-w-[290px] -rotate-2 rounded-xl p-6 shadow md:order-1",
+          "order-2 mx-auto max-w-[290px] -rotate-2 p-6 shadow md:order-1",
           background,
         )}
       >
@@ -35,13 +37,22 @@ export const Editor = () => {
             <div key={index}>
               <Image
                 src={image}
-                width={200}
-                height={200}
+                width={225}
+                height={225}
                 alt=""
                 className={cn("mx-auto rounded", filter)}
               />
             </div>
           ))}
+          {dateEnabled && (
+            <p className={cn("font-believe-heart bg-white text-center")}>
+              {new Date().toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </p>
+          )}
         </div>
       </div>
       <Filters />
