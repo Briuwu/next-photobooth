@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { ImagesStoreProvider } from "@/providers/images-store-provider";
+import { FiltersStoreProvider } from "@/providers/filters-store-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const misoRegular = localFont({
+  src: "./fonts/miso-regular.woff",
+  variable: "--font-miso",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const sail = localFont({
+  src: "./fonts/sail-regular.otf",
+  variable: "--font-sail",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${sail.variable} ${misoRegular.variable} font-miso bg-vintage-gold/25 grid min-h-dvh grid-rows-[auto_1fr_auto] antialiased`}
       >
-        {children}
+        <Header />
+        <FiltersStoreProvider>
+          <ImagesStoreProvider>{children}</ImagesStoreProvider>
+        </FiltersStoreProvider>
+        <Footer />
       </body>
     </html>
   );
