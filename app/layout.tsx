@@ -25,9 +25,9 @@ const believeHeart = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "RetroPhotobooth",
+  title: "BubblyBooth",
   description:
-    "A retro photobooth app. Take photos with vintage filters, and share them with your friends.",
+    "Step into a world of vintage charm and playful memories! ✨ Bubbly Booth is your go-to photobooth experience, where every snapshot is filled with joy, laughter, and a touch of retro magic. Whether you're celebrating a special occasion or just capturing fun moments with friends, our customizable and aesthetic filters bring your photos to life with a nostalgic yet modern twist. 📷 Snap. Smile. Sparkle. Let’s make memories that last forever—one bubbly click at a time!",
 };
 
 export default function RootLayout({
