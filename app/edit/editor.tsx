@@ -30,11 +30,25 @@ export const Editor = () => {
   const downloadImage = () => {
     if (!elementRef.current) return;
 
+    const scale = 2; // Double the size
+
+    // Create options object
+    const options = {
+      height: elementRef.current.offsetHeight * scale,
+      width: elementRef.current.offsetWidth * scale,
+      style: {
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+        width: `${elementRef.current.offsetWidth}px`,
+        height: `${elementRef.current.offsetHeight}px`,
+      },
+    };
+
     domtoimage
-      .toPng(elementRef.current)
+      .toPng(elementRef.current, options)
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = "photostrip.png";
+        link.download = "bubblybooth-photostrip.png";
         link.href = dataUrl;
         link.click();
       })
@@ -76,8 +90,8 @@ export const Editor = () => {
               <div key={index}>
                 <Image
                   src={image}
-                  width={200}
-                  height={200}
+                  width={500}
+                  height={500}
                   alt=""
                   className={cn("mx-auto rounded", filter)}
                 />
@@ -126,8 +140,8 @@ export const Editor = () => {
                   <div key={index}>
                     <Image
                       src={image}
-                      width={225}
-                      height={225}
+                      width={500}
+                      height={500}
                       alt=""
                       className={cn("mx-auto rounded", filter)}
                     />
