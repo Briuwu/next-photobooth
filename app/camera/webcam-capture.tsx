@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useImagesStore } from "@/providers/images-store-provider";
+import { Camera, Edit } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -48,32 +49,36 @@ export const WebcamCapture = () => {
 
   return (
     <div className="space-y-5">
-      {!started && images.length < 3 && (
-        <Button
-          className="bg-vintage-gold w-full px-8 py-6 text-xl font-bold uppercase"
-          onClick={handleStart}
-        >
-          Take a Photo
-        </Button>
-      )}
-      {images.length === 3 && (
-        <div className="grid grid-cols-2 gap-2">
+      <div className="h-[51px]">
+        {!started && images.length < 3 && (
           <Button
-            asChild
-            className="bg-vintage-gold text-xl font-bold uppercase"
+            className="bg-vintage-gold w-full px-8 py-6 text-xl font-bold uppercase"
+            onClick={handleStart}
           >
-            <Link href="/edit">Edit Photos</Link>
+            <Camera /> Take a Photo
           </Button>
-          <Button
-            onClick={handleRetake}
-            variant="destructive"
-            className="text-xl font-bold uppercase"
-          >
-            Retake
-          </Button>
-        </div>
-      )}
-      <div className="relative overflow-hidden rounded-xl">
+        )}
+        {images.length === 3 && (
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              asChild
+              className="bg-vintage-gold px-8 py-6 text-xl font-bold uppercase"
+            >
+              <Link href="/edit">
+                <Edit /> Edit Photos
+              </Link>
+            </Button>
+            <Button
+              onClick={handleRetake}
+              variant="destructive"
+              className="px-8 py-6 text-xl font-bold uppercase"
+            >
+              <Camera /> Retake
+            </Button>
+          </div>
+        )}
+      </div>
+      <div className="relative h-auto overflow-hidden rounded-xl md:h-[375px]">
         <Webcam
           ref={webcamRef}
           mirrored={true}
@@ -93,6 +98,11 @@ export const WebcamCapture = () => {
             {totalSeconds === 4 && images.length === 2
               ? "Get ready for the last photo!"
               : images.length === 2 && totalSeconds}
+          </div>
+        )}
+        {!isRunning && images.length === 3 && (
+          <div className="absolute inset-0 z-50 grid place-content-center bg-black text-center text-3xl text-white">
+            You look great!
           </div>
         )}
       </div>

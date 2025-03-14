@@ -1,5 +1,6 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { Camera, Upload } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -15,10 +16,13 @@ export default function Home() {
               asChild
               className="bg-vintage-gold px-8 py-6 text-xl font-bold uppercase"
             >
-              <Link href="/camera">Use Camera</Link>
+              <Link href="/camera">
+                <Camera />
+                Use Camera
+              </Link>
             </Button>
-            <Button className="bg-vintage-gold px-8 py-6 text-xl font-bold uppercase">
-              Upload Photos
+            <Button className="bg-vintage-green px-8 py-6 text-xl font-bold uppercase">
+              <Upload /> Upload Photos
             </Button>
           </div>
         </div>
