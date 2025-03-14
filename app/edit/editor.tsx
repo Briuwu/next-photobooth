@@ -43,6 +43,10 @@ export const Editor = () => {
       });
   };
 
+  const getInsetShadow = (backgroundColor: string) => {
+    return `inset 0px 0px 15px 0px ${backgroundColor}`;
+  };
+
   if (images.length === 0) {
     return (
       <div className="space-y-3 rounded-xl border border-black p-5">
@@ -58,22 +62,29 @@ export const Editor = () => {
       <div className={cn("order-2 -rotate-2 md:order-1")}>
         <div
           ref={elementRef}
-          className={cn("mx-auto max-w-[290px] p-6", background)}
+          className="mx-auto max-w-[290px] p-6"
+          style={{ backgroundColor: background }}
         >
-          <div className={cn("grid gap-5 rounded p-3", photostrip)}>
+          <div
+            className="grid gap-4 rounded p-4"
+            style={{
+              backgroundColor: photostrip,
+              boxShadow: getInsetShadow(background),
+            }}
+          >
             {images.map((image, index) => (
               <div key={index}>
                 <Image
                   src={image}
-                  width={225}
-                  height={225}
+                  width={200}
+                  height={200}
                   alt=""
                   className={cn("mx-auto rounded", filter)}
                 />
               </div>
             ))}
             {dateEnabled && (
-              <p className={cn("font-believe-heart bg-white text-center")}>
+              <p className="font-believe-heart bg-white text-center">
                 {new Date().toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",
@@ -101,9 +112,16 @@ export const Editor = () => {
             </DialogHeader>
             <div
               ref={elementRef}
-              className={cn("mx-auto max-w-[290px] p-6", background)}
+              className="mx-auto max-w-[290px] p-6"
+              style={{ backgroundColor: background }}
             >
-              <div className={cn("grid gap-5 rounded p-3", photostrip)}>
+              <div
+                className="grid gap-4 rounded p-4"
+                style={{
+                  backgroundColor: photostrip,
+                  boxShadow: getInsetShadow(background),
+                }}
+              >
                 {images.map((image, index) => (
                   <div key={index}>
                     <Image
@@ -116,7 +134,7 @@ export const Editor = () => {
                   </div>
                 ))}
                 {dateEnabled && (
-                  <p className={cn("font-believe-heart bg-white text-center")}>
+                  <p className="font-believe-heart bg-white text-center">
                     {new Date().toLocaleDateString("en-US", {
                       month: "long",
                       day: "numeric",

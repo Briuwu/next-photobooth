@@ -21,8 +21,13 @@ export default function Home() {
                 Use Camera
               </Link>
             </Button>
-            <Button className="bg-vintage-green px-8 py-6 text-xl font-bold uppercase">
-              <Upload /> Upload Photos
+            <Button
+              asChild
+              className="bg-vintage-green px-8 py-6 text-xl font-bold uppercase"
+            >
+              <Link href="/upload">
+                <Upload /> Upload Photos
+              </Link>
             </Button>
           </div>
         </div>

@@ -1,9 +1,26 @@
 import { useFiltersStore } from "@/providers/filters-store-provider";
 import { Check } from "lucide-react";
-
-import { colors, filters } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+
+const colors = [
+  "#000",
+  "#F6F0F0",
+  "#F2E2B1",
+  "#C7D9DD",
+  "#EEF1DA",
+  "#EDE8DC",
+  "#FDB7EA",
+];
+
+const filters = [
+  "black-and-white",
+  "sepia",
+  "warm",
+  "cold",
+  "cool",
+  "no-filter",
+];
 
 export const Filters = () => {
   const {
@@ -25,10 +42,9 @@ export const Filters = () => {
             <button
               key={color}
               className={`flex aspect-square w-8 items-center justify-center rounded-full border md:w-12 ${
-                photostrip === color
-                  ? `border-2 border-[#72b86d] ${color}`
-                  : `${color} ${color}`
+                photostrip === color ? "border-2 border-[#72b86d]" : ""
               }`}
+              style={{ backgroundColor: color }}
               onClick={() => setPhotostrip(color)}
             >
               {photostrip === color && (
@@ -45,10 +61,9 @@ export const Filters = () => {
             <button
               key={color}
               className={`flex aspect-square w-8 items-center justify-center rounded-full border md:w-12 ${
-                background === color
-                  ? `border-2 border-[#72b86d] ${color}`
-                  : `${color} ${color}`
+                background === color ? "border-2 border-[#72b86d]" : ""
               }`}
+              style={{ backgroundColor: color }}
               onClick={() => setBackground(color)}
             >
               {background === color && (
