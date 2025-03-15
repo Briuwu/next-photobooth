@@ -9,21 +9,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Filters } from "./filters";
 import domtoimage from "dom-to-image";
-import { Camera, Download, Eye } from "lucide-react";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Camera, Download } from "lucide-react";
+import { Preview } from "./preview";
+import { AxolotlStickers } from "./axolotl-stickers";
+import { CatStickers } from "./cat-stickers";
+import { PandaStickers } from "./panda-stickers";
 
 export const Editor = () => {
-  const { photostrip, background, filter, dateEnabled } = useFiltersStore(
-    (store) => store,
-  );
+  const { photostrip, background, filter, dateEnabled, stickers } =
+    useFiltersStore((store) => store);
   const { images } = useImagesStore((store) => store);
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -73,10 +67,10 @@ export const Editor = () => {
   }
   return (
     <div className="flex flex-col gap-10 md:flex-row">
-      <div className={cn("order-2 -rotate-2 md:order-1")}>
+      <div className={cn("order-2 md:order-1 md:-rotate-2")}>
         <div
           ref={elementRef}
-          className="mx-auto max-w-[290px] p-6"
+          className="relative mx-auto p-6"
           style={{ backgroundColor: background }}
         >
           <div
@@ -87,7 +81,10 @@ export const Editor = () => {
             }}
           >
             {images.slice(0, 3).map((image, index) => (
-              <div key={index} className="relative h-[180px] w-[200px]">
+              <div
+                key={index}
+                className="relative h-[180px] w-full md:w-[240px]"
+              >
                 <Image
                   src={image}
                   fill
@@ -109,61 +106,21 @@ export const Editor = () => {
               </p>
             )}
           </div>
+          {stickers === "axolotl" && <AxolotlStickers />}
+          {stickers === "cat" && <CatStickers />}
+          {stickers === "panda" && <PandaStickers />}
         </div>
       </div>
       <Filters />
       <div className="order-3 flex flex-col gap-3 self-center">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="bg-vintage-gold px-8 py-6 text-xl font-bold">
-              <Eye /> Preview
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="border-none bg-transparent shadow-none">
-            <DialogHeader className="sr-only">
-              <DialogTitle>Preview</DialogTitle>
-              <DialogDescription>
-                Click on the photostrip to close the preview.
-              </DialogDescription>
-            </DialogHeader>
-            <div
-              ref={elementRef}
-              className="mx-auto max-w-[290px] p-6"
-              style={{ backgroundColor: background }}
-            >
-              <div
-                className="grid gap-4 rounded p-4"
-                style={{
-                  backgroundColor: photostrip,
-                  boxShadow: getInsetShadow(background),
-                }}
-              >
-                {images.slice(0, 3).map((image, index) => (
-                  <div key={index} className="relative aspect-square w-[200px]">
-                    <Image
-                      src={image}
-                      fill
-                      alt=""
-                      className={cn(
-                        "absolute mx-auto h-full w-full rounded object-cover",
-                        filter,
-                      )}
-                    />
-                  </div>
-                ))}
-                {dateEnabled && (
-                  <p className="font-believe-heart bg-white text-center">
-                    {new Date().toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
-                )}
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Preview
+          background={background}
+          filter={filter}
+          getInsetShadow={getInsetShadow}
+          images={images}
+          photostrip={photostrip}
+          dateEnabled={dateEnabled}
+        />
 
         <Button
           onClick={downloadImage}

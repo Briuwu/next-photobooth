@@ -2,6 +2,7 @@ import { useFiltersStore } from "@/providers/filters-store-provider";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+import { PhotostripStickers } from "./photostrip-stickers";
 
 const colors = [
   "#000",
@@ -34,7 +35,11 @@ export const Filters = () => {
     setDateEnabled,
   } = useFiltersStore((store) => store);
   return (
-    <div className="order-1 max-w-[350px] divide-y-2 self-center">
+    <div className="order-1 w-full max-w-[350px] divide-y-2 self-center">
+      <div className="pb-5">
+        <p>Stickers</p>
+        <PhotostripStickers />
+      </div>
       <div className="pb-5">
         <p>Photostrip</p>
         <div className="flex flex-wrap gap-3">
