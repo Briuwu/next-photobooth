@@ -21,34 +21,114 @@ export const Editor = () => {
   const { images } = useImagesStore((store) => store);
   const elementRef = useRef<HTMLDivElement>(null);
 
-  const downloadImage = () => {
+  // const downloadImage = () => {
+  //   if (!elementRef.current) return;
+
+  //   const scale = 2; // Double the size
+
+  //   // Create options object
+  //   const options = {
+  //     height: elementRef.current.offsetHeight * scale,
+  //     width: elementRef.current.offsetWidth * scale,
+  //     style: {
+  //       transform: `scale(${scale})`,
+  //       transformOrigin: "top left",
+  //       width: `${elementRef.current.offsetWidth}px`,
+  //       height: `${elementRef.current.offsetHeight}px`,
+  //     },
+  //   };
+
+  //   domtoimage
+  //     .toPng(elementRef.current, options)
+  //     .then((dataUrl) => {
+  //       const link = document.createElement("a");
+  //       link.download = "bubblybooth-photostrip.png";
+  //       link.href = dataUrl;
+  //       link.click();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error downloading image:", error);
+  //     });
+  // };
+
+  const downloadImage = async () => {
     if (!elementRef.current) return;
 
-    const scale = 2; // Double the size
+    // Add loading indicator
+    const loadingIndicator = document.createElement("div");
+    loadingIndicator.textContent = "Generating image...";
+    loadingIndicator.style.position = "fixed";
+    loadingIndicator.style.top = "50%";
+    loadingIndicator.style.left = "50%";
+    loadingIndicator.style.transform = "translate(-50%, -50%)";
+    loadingIndicator.style.padding = "10px";
+    loadingIndicator.style.backgroundColor = "rgba(0,0,0,0.7)";
+    loadingIndicator.style.color = "white";
+    loadingIndicator.style.borderRadius = "5px";
+    loadingIndicator.style.zIndex = "9999";
+    document.body.appendChild(loadingIndicator);
 
-    // Create options object
-    const options = {
-      height: elementRef.current.offsetHeight * scale,
-      width: elementRef.current.offsetWidth * scale,
-      style: {
-        transform: `scale(${scale})`,
-        transformOrigin: "top left",
-        width: `${elementRef.current.offsetWidth}px`,
-        height: `${elementRef.current.offsetHeight}px`,
-      },
-    };
+    try {
+      // Make sure all fonts are loaded
+      await document.fonts.ready;
 
-    domtoimage
-      .toPng(elementRef.current, options)
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "bubblybooth-photostrip.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((error) => {
-        console.error("Error downloading image:", error);
-      });
+      // Make sure all images are loaded
+      const images = elementRef.current.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve; // Continue even if image fails
+            // Set a timeout to resolve after 3 seconds regardless
+            setTimeout(resolve, 3000);
+          });
+        }),
+      );
+
+      // Add explicit timeout to detect silent failures
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Dom-to-image timed out")), 10000),
+      );
+
+      // Race the actual operation against the timeout
+      const dataUrl = await Promise.race([
+        domtoimage.toPng(elementRef.current, {
+          bgcolor: "#ffffff", // White background
+          cacheBust: true,
+          imagePlaceholder:
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+        }),
+        timeoutPromise,
+      ]);
+
+      // Check if we got a valid data URL
+      if (
+        !dataUrl ||
+        typeof dataUrl !== "string" ||
+        !dataUrl.startsWith("data:")
+      ) {
+        throw new Error("Invalid data URL returned");
+      }
+
+      // Create download link
+      const link = document.createElement("a");
+      link.download = "bubblybooth-photostrip.png";
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      console.log("Image download initiated successfully");
+    } catch (error) {
+      console.error("Error generating image:", error);
+      alert(
+        "Failed to generate image. Please try again or use a different browser.",
+      );
+    } finally {
+      // Remove loading indicator
+      document.body.removeChild(loadingIndicator);
+    }
   };
 
   const getInsetShadow = (backgroundColor: string) => {
