@@ -28,14 +28,15 @@ const websiteUrl = "https://bubblybooth.vercel.app/";
 const imageUrl = "./public/bubblybooth.png";
 
 export const metadata: Metadata = {
-  title: "BubblyBooth",
+  title: "BubblyBooth - Vintage Photobooth Experience",
   description:
     "Step into a world of vintage charm and playful memories! ✨ Bubbly Booth is your go-to photobooth experience, where every snapshot is filled with joy, laughter, and a touch of retro magic. Whether you're celebrating a special occasion or just capturing fun moments with friends, our customizable and aesthetic filters bring your photos to life with a nostalgic yet modern twist. 📷 Snap. Smile. Sparkle. Let's make memories that last forever—one bubbly click at a time!",
   metadataBase: new URL(websiteUrl),
   openGraph: {
     type: "website",
     url: websiteUrl,
-    title: "BubblyBooth",
+    title: "BubblyBooth - Vintage Photobooth Experience",
+    siteName: "BubblyBooth",
     description:
       "Step into a world of vintage charm and playful memories! ✨ Bubbly Booth is your go-to photobooth experience, where every snapshot is filled with joy, laughter, and a touch of retro magic. Whether you're celebrating a special occasion or just capturing fun moments with friends, our customizable and aesthetic filters bring your photos to life with a nostalgic yet modern twist. 📷 Snap. Smile. Sparkle. Let's make memories that last forever—one bubbly click at a time!",
     images: [
@@ -46,14 +47,53 @@ export const metadata: Metadata = {
         alt: "BubblyBooth - Vintage Photobooth Experience",
       },
     ],
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BubblyBooth",
+    title: "BubblyBooth - Vintage Photobooth Experience",
     description:
       "Step into a world of vintage charm and playful memories! ✨ Bubbly Booth is your go-to photobooth experience, where every snapshot is filled with joy, laughter, and a touch of retro magic. Whether you're celebrating a special occasion or just capturing fun moments with friends, our customizable and aesthetic filters bring your photos to life with a nostalgic yet modern twist. 📷 Snap. Smile. Sparkle. Let's make memories that last forever—one bubbly click at a time!",
     images: [imageUrl],
   },
+  keywords: [
+    "photobooth",
+    "vintage",
+    "retro",
+    "filters",
+    "memories",
+    "nostalgia",
+    "fun",
+    "photography",
+    "camera",
+    "photos",
+    "pictures",
+    "snapshots",
+    "celebration",
+    "special occasion",
+    "friends",
+    "family",
+    "joy",
+    "laughter",
+    "magic",
+    "customizable",
+    "aesthetic",
+    "modern",
+    "twist",
+    "snap",
+    "smile",
+    "sparkle",
+    "memories",
+    "forever",
+    "click",
+    "time",
+  ],
+  authors: [
+    {
+      name: "Briuwu",
+      url: "https://brianmillonte.vercel.app/",
+    },
+  ],
 };
 
 export default function RootLayout({
