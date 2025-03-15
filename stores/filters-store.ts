@@ -21,7 +21,7 @@ export type FiltersStore = FiltersState & FiltersActions;
 export const defaultInitState: FiltersState = {
   photostrip: "#000",
   background: "#F6F0F0",
-  filter: "black-and-white",
+  filter: "no-filter",
   dateEnabled: true,
   stickers: null,
 };

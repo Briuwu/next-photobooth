@@ -14,7 +14,7 @@ export const PhotostripStickers = () => {
   const { stickers, setStickers } = useFiltersStore((store) => store);
 
   return (
-    <div>
+    <div className="grid grid-cols-4">
       <Button
         onClick={() => setStickers("axolotl")}
         variant="ghost"
@@ -51,7 +51,10 @@ export const PhotostripStickers = () => {
       <Button
         onClick={() => setStickers(null)}
         variant="ghost"
-        className={cn("h-auto", !stickers && "border-2 border-[#72b86d]")}
+        className={cn(
+          "h-full w-full",
+          !stickers && "border-2 border-[#72b86d]",
+        )}
       >
         <Trash />
       </Button>

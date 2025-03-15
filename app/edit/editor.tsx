@@ -120,6 +120,7 @@ export const Editor = () => {
           images={images}
           photostrip={photostrip}
           dateEnabled={dateEnabled}
+          stickers={stickers}
         />
 
         <Button

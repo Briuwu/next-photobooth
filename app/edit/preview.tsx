@@ -10,6 +10,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Eye } from "lucide-react";
 import Image from "next/image";
+import { AxolotlStickers } from "./axolotl-stickers";
+import { CatStickers } from "./cat-stickers";
+import { PandaStickers } from "./panda-stickers";
 
 type Props = {
   background: string;
@@ -18,6 +21,7 @@ type Props = {
   filter: string;
   images: string[];
   dateEnabled: boolean;
+  stickers: "axolotl" | "cat" | "panda" | null;
 };
 
 export const Preview = ({
@@ -27,6 +31,7 @@ export const Preview = ({
   images,
   photostrip,
   dateEnabled,
+  stickers,
 }: Props) => {
   return (
     <Dialog>
@@ -35,14 +40,17 @@ export const Preview = ({
           <Eye /> Preview
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-[90svh] border-none bg-transparent shadow-none">
+      <DialogContent className="max-h-[90vh] overflow-auto border-none bg-transparent shadow-none">
         <DialogHeader className="sr-only">
           <DialogTitle>Preview</DialogTitle>
           <DialogDescription>
             Click on the photostrip to close the preview.
           </DialogDescription>
         </DialogHeader>
-        <div className="mx-auto p-6" style={{ backgroundColor: background }}>
+        <div
+          className="relative mx-auto p-6"
+          style={{ backgroundColor: background }}
+        >
           <div
             className="grid gap-4 rounded p-4"
             style={{
@@ -73,6 +81,9 @@ export const Preview = ({
               </p>
             )}
           </div>
+          {stickers === "axolotl" && <AxolotlStickers />}
+          {stickers === "cat" && <CatStickers />}
+          {stickers === "panda" && <PandaStickers />}
         </div>
       </DialogContent>
     </Dialog>
