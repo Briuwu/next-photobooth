@@ -11,6 +11,22 @@ import Webcam from "react-webcam";
 
 const TIMER = 4000;
 
+const RANDOM_MSGS = [
+  "You look great!",
+  "You're doing amazing!",
+  "You're a star!",
+  "You're a natural!",
+  "You're a pro!",
+  "You're a model!",
+  "You're a legend!",
+  "You're awesome!",
+  "You're fantastic!",
+  "You're a superstar!",
+  "You're a hero!",
+  "You're incredible!",
+  "You're amazing!",
+];
+
 export const WebcamCapture = () => {
   const { images, addImage, resetImages } = useImagesStore((store) => store);
   const time = new Date(new Date().getTime() + TIMER);
@@ -58,7 +74,7 @@ export const WebcamCapture = () => {
             <Camera /> Take a Photo
           </Button>
         )}
-        {images.length === 3 && (
+        {images.length >= 3 && (
           <div className="grid grid-cols-2 gap-2">
             <Button
               asChild
@@ -100,15 +116,15 @@ export const WebcamCapture = () => {
               : images.length === 2 && totalSeconds}
           </div>
         )}
-        {!isRunning && images.length === 3 && (
+        {!isRunning && images.length >= 3 && (
           <div className="absolute inset-0 z-50 grid place-content-center bg-black text-center text-3xl text-white">
-            You look great!
+            {RANDOM_MSGS[Math.floor(Math.random() * RANDOM_MSGS.length)]}
           </div>
         )}
       </div>
 
       <div className="flex justify-center gap-5">
-        {images.map((image, index) => (
+        {images.slice(0, 3).map((image, index) => (
           <div
             key={index}
             className="relative h-20 w-20 overflow-hidden rounded-xl border border-black shadow-[3px_3px_0px_0px_#1a202c]"

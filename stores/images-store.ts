@@ -7,6 +7,7 @@ export type ImagesState = {
 export type ImagesActions = {
   addImage: (image: string) => void;
   resetImages: () => void;
+  addImages: (images: string[]) => void;
 };
 
 export type ImagesStore = ImagesState & ImagesActions;
@@ -22,5 +23,7 @@ export const createImagesStore = (
     ...initState,
     addImage: (image) => set((state) => ({ images: [...state.images, image] })),
     resetImages: () => set({ images: [] }),
+    addImages: (images) =>
+      set((state) => ({ images: [...images, ...state.images] })),
   }));
 };

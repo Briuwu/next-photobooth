@@ -28,7 +28,7 @@ export const Header = () => {
             About
           </Button>
         </DialogTrigger>
-        <DialogContent className="md:max-w-md">
+        <DialogContent className="bg-[#F6F0F0] md:max-w-md">
           <DialogHeader>
             <DialogTitle className="text-3xl">
               Welcome to Bubbly Booth! 🎉📸

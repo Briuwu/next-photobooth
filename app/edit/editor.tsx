@@ -86,14 +86,16 @@ export const Editor = () => {
               boxShadow: getInsetShadow(background),
             }}
           >
-            {images.map((image, index) => (
-              <div key={index}>
+            {images.slice(0, 3).map((image, index) => (
+              <div key={index} className="relative h-[180px] w-[200px]">
                 <Image
                   src={image}
-                  width={500}
-                  height={500}
+                  fill
                   alt=""
-                  className={cn("mx-auto rounded", filter)}
+                  className={cn(
+                    "absolute mx-auto h-full w-full rounded object-cover",
+                    filter,
+                  )}
                 />
               </div>
             ))}
@@ -136,14 +138,16 @@ export const Editor = () => {
                   boxShadow: getInsetShadow(background),
                 }}
               >
-                {images.map((image, index) => (
-                  <div key={index}>
+                {images.slice(0, 3).map((image, index) => (
+                  <div key={index} className="relative aspect-square w-[200px]">
                     <Image
                       src={image}
-                      width={500}
-                      height={500}
+                      fill
                       alt=""
-                      className={cn("mx-auto rounded", filter)}
+                      className={cn(
+                        "absolute mx-auto h-full w-full rounded object-cover",
+                        filter,
+                      )}
                     />
                   </div>
                 ))}
