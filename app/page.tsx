@@ -1,6 +1,5 @@
 import hero from "@/public/hero.png";
 
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Camera, Upload } from "lucide-react";
 import Link from "next/link";
@@ -35,9 +34,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mx-auto w-[250px] md:w-[350px]">
-          <AspectRatio ratio={1 / 1}>
-            <Image src={hero} alt="" />
-          </AspectRatio>
+          <Image src={hero} alt="" />
         </div>
       </div>
     </main>
