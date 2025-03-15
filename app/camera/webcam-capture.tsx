@@ -94,7 +94,7 @@ export const WebcamCapture = () => {
           </div>
         )}
       </div>
-      <div className="relative h-auto overflow-hidden rounded-xl md:h-[375px]">
+      <div className="relative h-[250px] overflow-hidden rounded-xl md:h-[375px]">
         <Webcam
           ref={webcamRef}
           mirrored={true}
