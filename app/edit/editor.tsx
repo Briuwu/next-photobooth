@@ -24,19 +24,19 @@ export const Editor = () => {
   // const downloadImage = () => {
   //   if (!elementRef.current) return;
 
-  //   const scale = 2; // Double the size
+  // const scale = 2; // Double the size
 
-  //   // Create options object
-  //   const options = {
-  //     height: elementRef.current.offsetHeight * scale,
-  //     width: elementRef.current.offsetWidth * scale,
-  //     style: {
-  //       transform: `scale(${scale})`,
-  //       transformOrigin: "top left",
-  //       width: `${elementRef.current.offsetWidth}px`,
-  //       height: `${elementRef.current.offsetHeight}px`,
-  //     },
-  //   };
+  // // Create options object
+  // const options = {
+  //   height: elementRef.current.offsetHeight * scale,
+  //   width: elementRef.current.offsetWidth * scale,
+  //   style: {
+  //     transform: `scale(${scale})`,
+  //     transformOrigin: "top left",
+  //     width: `${elementRef.current.offsetWidth}px`,
+  //     height: `${elementRef.current.offsetHeight}px`,
+  //   },
+  // };
 
   //   domtoimage
   //     .toPng(elementRef.current, options)
@@ -91,6 +91,20 @@ export const Editor = () => {
         setTimeout(() => reject(new Error("Dom-to-image timed out")), 10000),
       );
 
+      const scale = 2; // Double the size
+
+      // Create options object
+      const options = {
+        height: elementRef.current.offsetHeight * scale,
+        width: elementRef.current.offsetWidth * scale,
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+          width: `${elementRef.current.offsetWidth}px`,
+          height: `${elementRef.current.offsetHeight}px`,
+        },
+      };
+
       // Race the actual operation against the timeout
       const dataUrl = await Promise.race([
         domtoimage.toPng(elementRef.current, {
@@ -98,6 +112,7 @@ export const Editor = () => {
           cacheBust: true,
           imagePlaceholder:
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+          ...options,
         }),
         timeoutPromise,
       ]);
@@ -150,7 +165,7 @@ export const Editor = () => {
       <div className={cn("order-2 md:order-1 md:-rotate-2")}>
         <div
           ref={elementRef}
-          className="relative mx-auto p-6"
+          className="relative mx-auto w-fit p-6"
           style={{ backgroundColor: background }}
         >
           <div
@@ -161,10 +176,7 @@ export const Editor = () => {
             }}
           >
             {images.slice(0, 3).map((image, index) => (
-              <div
-                key={index}
-                className="relative h-[180px] w-full md:w-[240px]"
-              >
+              <div key={index} className="relative h-[180px] w-[240px]">
                 <Image
                   src={image}
                   fill

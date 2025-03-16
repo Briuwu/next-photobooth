@@ -48,7 +48,7 @@ export const Preview = ({
           </DialogDescription>
         </DialogHeader>
         <div
-          className="relative mx-auto p-6"
+          className="relative mx-auto w-fit p-6"
           style={{ backgroundColor: background }}
         >
           <div
