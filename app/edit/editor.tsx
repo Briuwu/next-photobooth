@@ -123,7 +123,7 @@ export const Editor = () => {
     } catch (error) {
       console.error("Error generating image:", error);
       alert(
-        "Failed to generate image. Please try again or use a different browser.",
+        "Failed to generate image. Please refresh your page or use a different browser.",
       );
     } finally {
       // Remove loading indicator
