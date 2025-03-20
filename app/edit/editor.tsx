@@ -162,7 +162,7 @@ export const Editor = () => {
   }
   return (
     <div className="flex flex-col gap-10 md:flex-row">
-      <div className={cn("order-2 md:order-1 md:-rotate-2")}>
+      <div className={cn("order-2 self-center md:order-1 md:-rotate-2")}>
         <div
           ref={elementRef}
           className="relative mx-auto w-fit p-6"
