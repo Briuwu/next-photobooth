@@ -21,36 +21,6 @@ export const Editor = () => {
   const { images } = useImagesStore((store) => store);
   const elementRef = useRef<HTMLDivElement>(null);
 
-  // const downloadImage = () => {
-  //   if (!elementRef.current) return;
-
-  // const scale = 2; // Double the size
-
-  // // Create options object
-  // const options = {
-  //   height: elementRef.current.offsetHeight * scale,
-  //   width: elementRef.current.offsetWidth * scale,
-  //   style: {
-  //     transform: `scale(${scale})`,
-  //     transformOrigin: "top left",
-  //     width: `${elementRef.current.offsetWidth}px`,
-  //     height: `${elementRef.current.offsetHeight}px`,
-  //   },
-  // };
-
-  //   domtoimage
-  //     .toPng(elementRef.current, options)
-  //     .then((dataUrl) => {
-  //       const link = document.createElement("a");
-  //       link.download = "bubblybooth-photostrip.png";
-  //       link.href = dataUrl;
-  //       link.click();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error downloading image:", error);
-  //     });
-  // };
-
   const downloadImage = async () => {
     if (!elementRef.current) return;
 
@@ -108,7 +78,7 @@ export const Editor = () => {
       // Race the actual operation against the timeout
       const dataUrl = await Promise.race([
         domtoimage.toPng(elementRef.current, {
-          bgcolor: "#ffffff", // White background
+          bgcolor: background,
           cacheBust: true,
           imagePlaceholder:
             "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
